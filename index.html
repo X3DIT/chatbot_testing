@@ -348,318 +348,51 @@ function addMsg(text, cls='bot-msg'){
   d.className = cls;
 
   if(cls === 'bot-msg'){
-    d.innerHTML = text;   // allow HTML lists
+    d.innerHTML = text;
   } else {
-    d.textContent = text; // user input safe
+    d.textContent = text;
   }
 
   messages.appendChild(d);
   messages.scrollTop = messages.scrollHeight;
 }
 
-
-
-/* ✅ SERVICE KNOWLEDGE BASE (ALL RULES) */
-const services = [
-  {
-    keywords: ['birth', 'janana'],
-    reply: `
-<b>Birth Certificate edukkan njan help cheyyam 🙂</b>
-
-<ul>
-  <li><b>Steps:</b>
-    <ul>
-      <li>Jananam nadannathinu shesham register cheyyanam</li>
-      <li>Hospital birth report collect cheyyanam</li>
-      <li>Panchayat office-il application kodukkanam</li>
-    </ul>
-  </li>
-
-  <li><b>Documents:</b>
-    <ul>
-      <li>Hospital birth report</li>
-      <li>Parent ID proof</li>
-    </ul>
-  </li>
-
-  <li><b>Evide apply cheyyam:</b>
-    <ul>
-      <li>Panchayat office</li>
-      <li>Akshaya center</li>
-    </ul>
-  </li>
-
-  <li><b>Processing time:</b> 7–14 days</li>
-</ul>
-
-<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
-`
-
-  },
-  {
-    keywords: ['death', 'maranam',],
-    reply: `
-<b>Death Certificate edukkan njan guide cheyyam</b>
-
-<ul>
-  <li><b>Steps:</b>
-    <ul>
-      <li>Maranam Panchayat-il register cheyyanam</li>
-      <li>Hospital death report collect cheyyanam</li>
-      <li>Panchayat office-il application submit cheyyanam</li>
-    </ul>
-  </li>
-
-  <li><b>Documents:</b>
-    <ul>
-      <li>Death report</li>
-      <li>Applicant ID proof</li>
-    </ul>
-  </li>
-
-  <li><b>Processing time:</b> 7–14 days</li>
-</ul>
-
-<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
-`
-
-  },
-  {
-    keywords: ['marriage', 'kalyanam'],
-    reply: `
-<b>Marriage Registration cheyyan njan help cheyyam 💍</b>
-
-<ul>
-  <li><b>Documents:</b>
-    <ul>
-      <li>Marriage photo / proof</li>
-      <li>Bride & Groom ID proof</li>
-      <li>Witness ID proof</li>
-    </ul>
-  </li>
-
-  <li><b>Evide apply cheyyam:</b>
-    <ul>
-      <li>Panchayat office</li>
-    </ul>
-  </li>
-</ul>
-
-<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
-`
-  },
-  {
-    keywords: ['aadhaar', 'aadhar'],
-   reply: `
-<b>Aadhaar Correction details ivide 🙂</b>
-
-<ul>
-  <li><b>Steps:</b>
-    <ul>
-      <li>Nearest Akshaya center-il pokanam</li>
-      <li>Correction details submit cheyyanam</li>
-    </ul>
-  </li>
-
-  <li><b>Documents:</b>
-    <ul>
-      <li>Aadhaar card</li>
-      <li>Correction proof (ID / Address proof)</li>
-    </ul>
-  </li>
-</ul>
-
-<small>Ithu guidance mathram aanu. Final decision UIDAI-il aanu.</small>
-`
-
-  },
-  {
-    keywords: ['ration'],
-    reply: `
-<b>Ration Card sambandhicha services 🍚</b>
-
-<ul>
-  <li>New ration card apply</li>
-  <li>Name / address correction</li>
-  <li>Member add / remove</li>
-
-  <li><b>Evide apply cheyyam:</b>
-    <ul>
-      <li>Akshaya center</li>
-      <li>Civil Supplies portal</li>
-    </ul>
-  </li>
-</ul>
-
-<small>Ithu guidance mathram aanu. Final decision Civil Supplies department-il aanu.</small>
-`
-
-  },
-  {
-    keywords: ['tax', 'property'],
-    reply: `
-<b>Property Tax payment details 💰</b>
-
-<ul>
-  <li><b>Payment options:</b>
-    <ul>
-      <li>Online payment (if available)</li>
-      <li>Panchayat office direct payment</li>
-    </ul>
-  </li>
-
-  <li>Delay aayal fine apply cheyyum</li>
-</ul>
-
-<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
-`
-
-  },
-  {
-    keywords: ['building', 'permit'],
-    reply: `
-<b>Building Permit edukkan vendiya details 🏗️</b>
-
-<ul>
-  <li><b>Documents:</b>
-    <ul>
-      <li>Approved building plan</li>
-      <li>Ownership documents</li>
-      <li>Latest tax receipt</li>
-    </ul>
-  </li>
-
-  <li>Permit illathe construction cheyyaruthu</li>
-</ul>
-
-<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
-`
-
-  },
-  {
-    keywords: ['life mission', 'housing'],
-    reply: `Life Mission housing scheme:
-
-Eligibility:
-- Own house illatha families
-- Economically weak category
-
-Apply cheyyan:
-- Panchayat office
-
-Ithu guidance mathram aanu. Final decision Government criteria adisthanam aanu.`
-  },
-  {
-    keywords: ['complaint', 'grievance'],
-    reply: `
-<b>Complaint / Grievance register cheyyan 📝</b>
-
-<ul>
-  <li><b>Options:</b>
-    <ul>
-      <li>Written complaint Panchayat office-il</li>
-      <li>Online portal (if available)</li>
-    </ul>
-  </li>
-
-  <li><b>Include cheyyanam:</b>
-    <ul>
-      <li>Issue details</li>
-      <li>Contact number</li>
-      <li>Ward number</li>
-    </ul>
-  </li>
-</ul>
-
-<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
-`
-
-  },
-  {
-    keywords: ['income'],
-    reply: `
-<b>Income Certificate edukkan njan help cheyyam 📄</b>
-
-<ul>
-  <li><b>Evide apply cheyyam:</b>
-    <ul>
-      <li>Akshaya center</li>
-    </ul>
-  </li>
-
-  <li><b>Documents:</b>
-    <ul>
-      <li>ID proof</li>
-      <li>Income proof</li>
-      <li>Ration card</li>
-    </ul>
-  </li>
-
-  <li><b>Processing time:</b> 7–10 days</li>
-</ul>
-
-<small>Ithu guidance mathram aanu. Final decision Tahsildar office-il aanu.</small>
-`
-}
-];
-
-/* 🧠 MAIN LOGIC */
+/* 🧠 AI BACKEND CALL */
 async function handleQuery(text) {
   try {
     const res = await fetch("http://localhost:5000/chat", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text }),
     });
 
     const data = await res.json();
-
-    if (data.reply) {
-      return data.reply;
-    } else {
-      return "Sorry 🙂 temporary issue undu. Pinne try cheyyuka.";
-    }
+    return data.reply || "Sorry 🙂 temporary issue undu.";
   } catch (error) {
     console.error(error);
     return "Server connect cheyyan pattiyilla. Backend run aayittundo?";
   }
 }
 
-
-  /* ❓ FALLBACK CLARIFICATION */
-  return `Manassilayilla 🙂  
-Ningal eth service kurich aanu ariyan agrahikkunnathu?
-
-Try typing:
-• Birth certificate  
-• Death certificate  
-• Ration card  
-• Property tax  
-• Aadhaar correction  
-
-Or use the buttons below 👇`;
-
-
 /* QUICK BUTTON */
 function quickReply(text){
   addMsg(text, 'user-msg');
-  setTimeout(() => {
-    addMsg(handleQuery(text));
-  }, 500);
+  setTimeout(async () => {
+    const reply = await handleQuery(text);
+    addMsg(reply);
+  }, 400);
 }
 
 /* SEND BUTTON */
-sendBtn.onclick = () => {
+sendBtn.onclick = async () => {
   if(!input.value.trim()) return;
-  const userText = input.value;
-  addMsg(userText, 'user-msg');
-  input.value = '';
 
-  setTimeout(() => {
-    addMsg(handleQuery(userText));
-  }, 600);
+  const userText = input.value;
+  input.value = '';
+  addMsg(userText, 'user-msg');
+
+  const reply = await handleQuery(userText);
+  addMsg(reply);
 };
 
 input.addEventListener('keypress', (e) => {
@@ -668,6 +401,7 @@ input.addEventListener('keypress', (e) => {
   }
 });
 </script>
+
 
 
 </body>
