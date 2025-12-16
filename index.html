@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panchayat Helpdesk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --green:#16a34a;
+      --light-green:#eafaf0;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --bg:#f9fafb;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Montserrat',sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+    header{
+      background:#fff;
+      border-bottom:1px solid #eee;
+    }
+    .nav{
+      max-width:1200px;
+      margin:auto;
+      padding:16px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .logo{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-weight:600;
+    }
+    .logo-badge{
+      width:32px;height:32px;
+      background:var(--green);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      font-weight:700;
+    }
+    .nav a{
+      text-decoration:none;
+      color:#111;
+      margin-left:20px;
+      font-size:14px;
+    }
+    .login-btn{
+      background:#111;
+      color:#fff;
+      padding:8px 16px;
+      border-radius:20px;
+    }
+
+    .hero{
+      max-width:1200px;
+      margin:60px auto;
+      padding:0 24px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:40px;
+      align-items:start;
+    }
+    .badge{
+      display:inline-block;
+      background:var(--light-green);
+      color:var(--green);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:12px;
+      margin-bottom:16px;
+    }
+    h1{
+      font-size:44px;
+      line-height:1.2;
+      margin:0 0 12px;
+    }
+    h1 span{color:#7c6f63;font-weight:500}
+    .hero p{color:var(--muted);max-width:520px}
+    .meta{
+      display:flex;
+      gap:24px;
+      margin-top:24px;
+      font-size:14px;
+    }
+
+    .chatbox{
+      background:#fff;
+      border-radius:16px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.08);
+      display:flex;
+      flex-direction:column;
+      height:520px;
+    }
+    .chat-header{
+      padding:16px;
+      background:#f0fdf4;
+      border-radius:16px 16px 0 0;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-size:14px;
+    }
+    .online{color:var(--green);font-size:12px}
+    .chat-messages{
+      flex:1;
+      padding:16px;
+      overflow-y:auto;
+      font-size:14px;
+    }
+    .bot-msg{
+      background:#f3f4f6;
+      padding:12px 14px;
+      border-radius:12px;
+      max-width:80%;
+      margin-bottom:12px;
+    }
+    .user-msg{
+      background:#16a34a;
+      color:#fff;
+      padding:12px 14px;
+      border-radius:12px;
+      max-width:80%;
+      margin-left:auto;
+      margin-bottom:12px;
+      text-align:right;
+    }
+    .quick-actions{
+      padding:12px 16px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .quick-actions button{
+      border:1px solid #e5e7eb;
+      background:#fff;
+      border-radius:20px;
+      padding:6px 12px;
+      font-size:12px;
+      cursor:pointer;
+      transition:all 0.2s;
+    }
+    .quick-actions button:hover{
+      background:#f0fdf4;
+      border-color:#16a34a;
+    }
+    .chat-input{
+      display:flex;
+      padding:12px;
+      border-top:1px solid #eee;
+      gap:8px;
+    }
+    .chat-input input{
+      flex:1;
+      border:1px solid #e5e7eb;
+      border-radius:20px;
+      padding:10px 14px;
+      font-size:14px;
+      font-family:'Montserrat',sans-serif;
+    }
+    .chat-input input:focus{
+      outline:none;
+      border-color:#16a34a;
+    }
+    .send-btn{
+      background:var(--green);
+      border:none;
+      color:#fff;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:18px;
+      transition:background 0.2s;
+    }
+    .send-btn:hover{
+      background:#15803d;
+    }
+
+    .services{
+      max-width:1200px;
+      margin:80px auto;
+      padding:0 24px;
+    }
+    .services h2{text-align:center;margin-bottom:8px}
+    .services p{text-align:center;color:var(--muted);margin-bottom:40px}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:24px;
+    }
+    .card{
+      background:#f0fdf4;
+      padding:24px;
+      border-radius:16px;
+      border:1px solid #86efac;
+      transition:transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(22,163,74,0.1);
+    }
+    .card-icon{
+      width:48px;
+      height:48px;
+      background:var(--green);
+      color:#fff;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:24px;
+      margin-bottom:12px;
+    }
+    .card h3{margin:12px 0 8px}
+    .card p{color:var(--muted);font-size:14px;margin-bottom:12px}
+    .card a{color:var(--green);font-size:14px;text-decoration:none;font-weight:500}
+
+    footer{
+      text-align:center;
+      font-size:12px;
+      color:#6b7280;
+      padding:40px 16px;
+    }
+
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}
+      h1{font-size:34px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-badge">KL</div>
+      <div>
+        Panchayat Helpdesk<br>
+        <small style="color:#6b7280">Citizen Portal</small>
+      </div>
+    </div>
+    <nav>
+      <a href="#">📋 Services</a>
+      <a href="#">📢 Notices</a>
+      <a href="#">📞 Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="badge">● Official Digital Helpdesk</div>
+    <h1>Namaskaram!<br><span>Ningalude Panchayat services ivide ariyam.</span></h1>
+    <p>Skip the queues. Get instant information about certificates, taxes, and welfare schemes directly from your phone.</p>
+    <div class="meta">
+      <div>🕘 10 AM – 5 PM<br><small>Office Hours</small></div>
+      <div>📞 0484-245xxxx<br><small>Helpline</small></div>
+    </div>
+  </div>
+
+  <div class="chatbox">
+    <div class="chat-header">
+      🤖 <strong>Helpdesk Assistant</strong>
+      <span class="online">● Online</span>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="bot-msg">Namaskaram! I am your Panchayat assistant. How can I help you today?</div>
+    </div>
+    <div class="quick-actions">
+      <button onclick="quickReply('Apply for Birth Certificate')">Apply for Birth Certificate</button>
+      <button onclick="quickReply('Pay Property Tax')">Pay Property Tax</button>
+      <button onclick="quickReply('Aadhaar Correction')">Aadhaar Correction</button>
+      <button onclick="quickReply('Ration Card')">Ration Card</button>
+    </div>
+    <div class="chat-input">
+      <input id="chat-input" placeholder="Type 'Building Permit' or 'Ration Card'..." />
+      <button class="send-btn" id="send-btn">↑</button>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <h2>Popular Services</h2>
+  <p>Everything you need, just a tap away.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">👶</div>
+      <h3>Birth Certificate</h3>
+      <p>Application process, documents required, and status check.</p>
+      <a href="#">View Details →</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏗️</div>
+      <h3>Building Permits</h3>
+      <p>Guidelines for new construction and renovation permits.</p>
+      <a href="#">View Details →</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏠</div>
+      <h3>Life Mission</h3>
+      <p>Housing schemes for the homeless and landless.</p>
+      <a href="#">View Details →</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">💰</div>
+      <h3>Property Tax</h3>
+      <p>Online payment gateway and tax assessment details.</p>
+      <a href="#">View Details →</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">💍</div>
+      <h3>Marriage Registration</h3>
+      <p>Register marriages and download certificates.</p>
+      <a href="#">View Details →</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌾</div>
+      <h3>Ration Card</h3>
+      <p>Apply for new cards or corrections in existing cards.</p>
+      <a href="#">View Details →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  This system provides guidance using Artificial Intelligence. Official decisions regarding applications and certificates are taken at the Panchayat office.<br><br>
+  © 2024 Digital Panchayat Initiative. Designed for the people.
+</footer>
+
+<script>
+const sendBtn = document.getElementById('send-btn');
+const input = document.getElementById('chat-input');
+const messages = document.getElementById('chat-messages');
+
+function addMsg(text, cls='bot-msg'){
+  const d = document.createElement('div');
+  d.className = cls;
+
+  if(cls === 'bot-msg'){
+    d.innerHTML = text;   // allow HTML lists
+  } else {
+    d.textContent = text; // user input safe
+  }
+
+  messages.appendChild(d);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+
+
+/* ✅ SERVICE KNOWLEDGE BASE (ALL RULES) */
+const services = [
+  {
+    keywords: ['birth', 'janana'],
+    reply: `
+<b>Birth Certificate edukkan njan help cheyyam 🙂</b>
+
+<ul>
+  <li><b>Steps:</b>
+    <ul>
+      <li>Jananam nadannathinu shesham register cheyyanam</li>
+      <li>Hospital birth report collect cheyyanam</li>
+      <li>Panchayat office-il application kodukkanam</li>
+    </ul>
+  </li>
+
+  <li><b>Documents:</b>
+    <ul>
+      <li>Hospital birth report</li>
+      <li>Parent ID proof</li>
+    </ul>
+  </li>
+
+  <li><b>Evide apply cheyyam:</b>
+    <ul>
+      <li>Panchayat office</li>
+      <li>Akshaya center</li>
+    </ul>
+  </li>
+
+  <li><b>Processing time:</b> 7–14 days</li>
+</ul>
+
+<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
+`
+
+  },
+  {
+    keywords: ['death', 'maranam',],
+    reply: `
+<b>Death Certificate edukkan njan guide cheyyam</b>
+
+<ul>
+  <li><b>Steps:</b>
+    <ul>
+      <li>Maranam Panchayat-il register cheyyanam</li>
+      <li>Hospital death report collect cheyyanam</li>
+      <li>Panchayat office-il application submit cheyyanam</li>
+    </ul>
+  </li>
+
+  <li><b>Documents:</b>
+    <ul>
+      <li>Death report</li>
+      <li>Applicant ID proof</li>
+    </ul>
+  </li>
+
+  <li><b>Processing time:</b> 7–14 days</li>
+</ul>
+
+<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
+`
+
+  },
+  {
+    keywords: ['marriage', 'kalyanam'],
+    reply: `
+<b>Marriage Registration cheyyan njan help cheyyam 💍</b>
+
+<ul>
+  <li><b>Documents:</b>
+    <ul>
+      <li>Marriage photo / proof</li>
+      <li>Bride & Groom ID proof</li>
+      <li>Witness ID proof</li>
+    </ul>
+  </li>
+
+  <li><b>Evide apply cheyyam:</b>
+    <ul>
+      <li>Panchayat office</li>
+    </ul>
+  </li>
+</ul>
+
+<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
+`
+  },
+  {
+    keywords: ['aadhaar', 'aadhar'],
+   reply: `
+<b>Aadhaar Correction details ivide 🙂</b>
+
+<ul>
+  <li><b>Steps:</b>
+    <ul>
+      <li>Nearest Akshaya center-il pokanam</li>
+      <li>Correction details submit cheyyanam</li>
+    </ul>
+  </li>
+
+  <li><b>Documents:</b>
+    <ul>
+      <li>Aadhaar card</li>
+      <li>Correction proof (ID / Address proof)</li>
+    </ul>
+  </li>
+</ul>
+
+<small>Ithu guidance mathram aanu. Final decision UIDAI-il aanu.</small>
+`
+
+  },
+  {
+    keywords: ['ration'],
+    reply: `
+<b>Ration Card sambandhicha services 🍚</b>
+
+<ul>
+  <li>New ration card apply</li>
+  <li>Name / address correction</li>
+  <li>Member add / remove</li>
+
+  <li><b>Evide apply cheyyam:</b>
+    <ul>
+      <li>Akshaya center</li>
+      <li>Civil Supplies portal</li>
+    </ul>
+  </li>
+</ul>
+
+<small>Ithu guidance mathram aanu. Final decision Civil Supplies department-il aanu.</small>
+`
+
+  },
+  {
+    keywords: ['tax', 'property'],
+    reply: `
+<b>Property Tax payment details 💰</b>
+
+<ul>
+  <li><b>Payment options:</b>
+    <ul>
+      <li>Online payment (if available)</li>
+      <li>Panchayat office direct payment</li>
+    </ul>
+  </li>
+
+  <li>Delay aayal fine apply cheyyum</li>
+</ul>
+
+<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
+`
+
+  },
+  {
+    keywords: ['building', 'permit'],
+    reply: `
+<b>Building Permit edukkan vendiya details 🏗️</b>
+
+<ul>
+  <li><b>Documents:</b>
+    <ul>
+      <li>Approved building plan</li>
+      <li>Ownership documents</li>
+      <li>Latest tax receipt</li>
+    </ul>
+  </li>
+
+  <li>Permit illathe construction cheyyaruthu</li>
+</ul>
+
+<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
+`
+
+  },
+  {
+    keywords: ['life mission', 'housing'],
+    reply: `Life Mission housing scheme:
+
+Eligibility:
+- Own house illatha families
+- Economically weak category
+
+Apply cheyyan:
+- Panchayat office
+
+Ithu guidance mathram aanu. Final decision Government criteria adisthanam aanu.`
+  },
+  {
+    keywords: ['complaint', 'grievance'],
+    reply: `
+<b>Complaint / Grievance register cheyyan 📝</b>
+
+<ul>
+  <li><b>Options:</b>
+    <ul>
+      <li>Written complaint Panchayat office-il</li>
+      <li>Online portal (if available)</li>
+    </ul>
+  </li>
+
+  <li><b>Include cheyyanam:</b>
+    <ul>
+      <li>Issue details</li>
+      <li>Contact number</li>
+      <li>Ward number</li>
+    </ul>
+  </li>
+</ul>
+
+<small>Ithu guidance mathram aanu. Final decision Panchayat office-il aanu.</small>
+`
+
+  },
+  {
+    keywords: ['income'],
+    reply: `
+<b>Income Certificate edukkan njan help cheyyam 📄</b>
+
+<ul>
+  <li><b>Evide apply cheyyam:</b>
+    <ul>
+      <li>Akshaya center</li>
+    </ul>
+  </li>
+
+  <li><b>Documents:</b>
+    <ul>
+      <li>ID proof</li>
+      <li>Income proof</li>
+      <li>Ration card</li>
+    </ul>
+  </li>
+
+  <li><b>Processing time:</b> 7–10 days</li>
+</ul>
+
+<small>Ithu guidance mathram aanu. Final decision Tahsildar office-il aanu.</small>
+`
+}
+];
+
+/* 🧠 MAIN LOGIC */
+async function handleQuery(text) {
+  try {
+    const res = await fetch("http://localhost:5000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: text }),
+    });
+
+    const data = await res.json();
+
+    if (data.reply) {
+      return data.reply;
+    } else {
+      return "Sorry 🙂 temporary issue undu. Pinne try cheyyuka.";
+    }
+  } catch (error) {
+    console.error(error);
+    return "Server connect cheyyan pattiyilla. Backend run aayittundo?";
+  }
+}
+
+
+  /* ❓ FALLBACK CLARIFICATION */
+  return `Manassilayilla 🙂  
+Ningal eth service kurich aanu ariyan agrahikkunnathu?
+
+Try typing:
+• Birth certificate  
+• Death certificate  
+• Ration card  
+• Property tax  
+• Aadhaar correction  
+
+Or use the buttons below 👇`;
+
+
+/* QUICK BUTTON */
+function quickReply(text){
+  addMsg(text, 'user-msg');
+  setTimeout(() => {
+    addMsg(handleQuery(text));
+  }, 500);
+}
+
+/* SEND BUTTON */
+sendBtn.onclick = () => {
+  if(!input.value.trim()) return;
+  const userText = input.value;
+  addMsg(userText, 'user-msg');
+  input.value = '';
+
+  setTimeout(() => {
+    addMsg(handleQuery(userText));
+  }, 600);
+};
+
+input.addEventListener('keypress', (e) => {
+  if(e.key === 'Enter'){
+    sendBtn.click();
+  }
+});
+</script>
+
+
+</body>
+</html>
